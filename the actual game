@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>937.Nead lC - Roll for Luck</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #121212;
+      color: #eee;
+      text-align: center;
+      padding: 50px;
+      margin: 0;
+    }
+    h1 {
+      color: cyan;
+      margin-bottom: 30px;
+      font-weight: 700;
+      text-shadow: 0 0 10px cyan;
+    }
+    button {
+      font-size: 24px;
+      padding: 15px 40px;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(45deg, #00ffff, #0055ff);
+      color: white;
+      box-shadow: 0 0 10px #00ffff;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: linear-gradient(45deg, #0055ff, #00ffff);
+    }
+    #result {
+      margin-top: 40px;
+      font-size: 32px;
+      min-height: 60px;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px cyan;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎲 937.Nead lC</h1>
+  <button onclick="roll()">Roll</button>
+  <div id="result"></div>
+
+  <script>
+    const tiers = [
+      { name: "Trash", emoji: "🗑️", weight: 400, color: "gray", items: ["Broken stick", "Deflated balloon"] },
+      { name: "Basic", emoji: "📦", weight: 250, color: "white", items: ["Old sock", "Plastic spoon"] },
+      { name: "Uncommon", emoji: "🟢", weight: 150, color: "lime", items: ["Silver coin", "Small gem"] },
+      { name: "Rare", emoji: "🔵", weight: 100, color: "deepskyblue", items: ["Magic wand", "Mini dragon"] },
+      { name: "Epic", emoji: "🟣", weight: 50, color: "purple", items: ["Enchanted sword", "Phoenix feather"] },
+      { name: "Legendary", emoji: "🟠", weight: 30, color: "orange", items: ["Dragon mount", "Orb of power"] },
+      { name: "Mythical", emoji: "🔮", weight: 10, color: "deeppink", items: ["Time crystal", "Ancient grimoire"] },
+      { name: "Divine", emoji: "✨", weight: 5, color: "gold", items: ["Celestial crown", "Angel wings"] },
+      { name: "Void", emoji: "🕳️", weight: 1, color: "black", items: ["Void shard", "Dark relic"] },
+      { name: "Glitched", emoji: "🧬", weight: 0.1, color: "cyan", items: ["Glitched Frog King", "Corrupted rainbow"] }
+    ];
+
+    function roll() {
+      const totalWeight = tiers.reduce((sum, t) => sum + t.weight, 0);
+      let rand = Math.random() * totalWeight;
+      let chosenTier;
+      for (const tier of tiers) {
+        if (rand < tier.weight) {
+          chosenTier = tier;
+          break;
+        }
+        rand -= tier.weight;
+      }
+      const item = chosenTier.items[Math.floor(Math.random() * chosenTier.items.length)];
+
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = `<span style="color: ${chosenTier.color}; font-weight: bold; font-size: 1.5em;">
+        ${chosenTier.emoji} You got: ${item} <br>
+        Rarity: ${chosenTier.emoji} ${chosenTier.name}
+      </span>`;
+    }
+  </script>
+</body>
+</html>
